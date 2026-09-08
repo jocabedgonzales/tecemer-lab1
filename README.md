@@ -43,3 +43,12 @@ tecemer-lab1/
 
 Jocabed Gonzales Quispe  
 Tecnologías Emergentes - ISO46B
+
+
+## Laboratorio 02: Librerías para datos
+
+En este laboratorio se utilizó NumPy para realizar operaciones vectorizadas y estadísticas básicas.
+
+También se consumió la API Open-Meteo para obtener el pronóstico de siete días de Huancayo. La respuesta JSON se guardó como respaldo y se convirtió a CSV.
+
+Finalmente, con Pandas se transformaron los datos: se calculó la amplitud térmica, se identificaron días lluviosos y se clasificaron las temperaturas en categorías. Los resultados procesados y el resumen por categoría se exportaron en archivos CSV.

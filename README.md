@@ -47,8 +47,32 @@ Tecnologías Emergentes - ISO46B
 
 ## Laboratorio 02: Librerías para datos
 
-En este laboratorio se utilizó NumPy para realizar operaciones vectorizadas y estadísticas básicas.
+## Flujo de datos — Semana 2
 
-También se consumió la API Open-Meteo para obtener el pronóstico de siete días de Huancayo. La respuesta JSON se guardó como respaldo y se convirtió a CSV.
+Esta sección documenta el pipeline de datos construido en la Semana 2 (Librerías para Datos y Automatización).
 
-Finalmente, con Pandas se transformaron los datos: se calculó la amplitud térmica, se identificaron días lluviosos y se clasificaron las temperaturas en categorías. Los resultados procesados y el resumen por categoría se exportaron en archivos CSV.
+**Fuente:** API pública Open-Meteo (`https://api.open-meteo.com/v1/forecast`), sin necesidad de clave de acceso. Se consulta el pronóstico de 7 días para Huancayo (latitud -12.07, longitud -75.21): temperatura máxima, temperatura mínima y precipitación diaria.
+
+**Transformación:**
+1. `clima.py` consume la API con `requests` (timeout de 5s y manejo de excepciones) y guarda la respuesta cruda en `pronostico_huancayo.json`.
+2. La misma respuesta se convierte a `pronostico_huancayo.csv` con el módulo estándar `csv`.
+3. `analisis.py` carga el CSV en un DataFrame de Pandas, agrega las columnas derivadas `amplitud_termica`, `dia_lluvioso` y `categoria` (frío/templado/cálido), y calcula un resumen agrupado por categoría con `groupby`.
+
+**Salida:**
+- `pronostico_huancayo.json` — respuesta cruda de la API (trazabilidad del dato original).
+- `pronostico_huancayo.csv` — datos tabulares sin procesar.
+- `pronostico_huancayo_procesado.csv` — datos con las columnas derivadas.
+- `resumen_por_categoria.csv` — agregación por categoría de temperatura.
+
+**Cómo reproducirlo:**
+```bash
+python clima.py
+python analisis.py
+```
+
+## Cierre de la Unidad I Semana 3
+Herramienta de automatización: organizador.py clasifica y mueve archivos de una carpeta en subcarpetas por tipo (Documentos, Imagenes, Videos, Comprimidos, Otros), con modo de simulación (--dry-run) mediante argparse.
+
+**Uso:**
+```powershell
+python organizador.py <carpeta> [--dry-run]
